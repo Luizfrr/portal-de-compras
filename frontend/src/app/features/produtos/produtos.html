@@ -1,0 +1,38 @@
+<h1>{{ titulo }}</h1>
+
+<h2>Novo Produto</h2>
+
+<input type="text" placeholder="Nome" [(ngModel)]="novoNome" required #nome="ngModel">
+@if (nome.invalid && nome.touched){
+    <p>O nome é obrigatório.</p>   
+}
+
+<input type="text" placeholder="Marca" [(ngModel)]="novaMarca" required #marca="ngModel">
+@if (marca.invalid && marca.touched){
+    <p>A marca é obrigatória.</p>
+}
+
+<button (click)="adicionarProduto()">
+    Adicionar
+</button>
+
+@for (produto of produtos; track produto.id){
+    <p>
+        {{ produto.nome }} - {{ produto.marca }}
+
+        <button (click)="selecionarProduto(produto)">
+            Selecionar
+        </button>
+
+        <button (click)="removerProduto(produto.id)">
+            Remover
+        </button>
+    </p>
+}
+
+@if (produtoSelecionado){
+    <h2>Produto Selecionado</h2>
+
+    <p>Nome: {{ produtoSelecionado.nome }}</p>
+    <p>Marca : {{ produtoSelecionado.marca }}</p>
+}
